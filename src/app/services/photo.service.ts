@@ -45,6 +45,7 @@ export class PhotoService {
       value: JSON.stringify(this.photos),
     });
   }
+
   private async savePicture(photo: Photo) {
     // Convert photo to base64 format, required by Filesystem API to save
     const base64Data = await this.readAsBase64(photo);
@@ -73,6 +74,7 @@ export class PhotoService {
       };
     }
   }
+
   private async readAsBase64(photo: Photo) {
     // "hybrid" will detect Cordova or Capacitor
     if (this.platform.is('hybrid')) {
@@ -124,6 +126,13 @@ export class PhotoService {
         photo.webviewPath = `data:image/jpeg;base64,${readFile.data}`;
       }
     }
+  }
+  public async deleteImage(image:UserPhoto ) {
+    await Filesystem.deleteFile({
+      directory: Directory.Data,
+      path: image.filepath
+    });
+    this.loadSaved();
   }
 }
 

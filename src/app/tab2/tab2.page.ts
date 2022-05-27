@@ -11,14 +11,17 @@ import { PhotoService, UserPhoto } from '../services/photo.service';
 export class Tab2Page {
   public photos: UserPhoto[] = [];
 
-  constructor(public photoService: PhotoService) {
+  constructor(public photoService: PhotoService) {}
 
+  addPhotoGallery() {
+    this.photoService.addNewToGallery();
   }
 
-addPhotoGallery(){
-    this.photoService.addNewToGallery();
+  deleteImage(UserPhoto) {
+    this.photoService.deleteImage(UserPhoto);
   }
   async ngOnInit() {
     await this.photoService.loadSaved();
   }
+  groupImages() {}
 }
